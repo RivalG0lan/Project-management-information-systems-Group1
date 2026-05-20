@@ -10,6 +10,10 @@
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white)
 
 **Analisis data penjualan bakery 2006–2019 menggunakan Python — dari data wrangling hingga Sistem Pendukung Keputusan berbasis SAW & TOPSIS.**
+<br>
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1J-4VsPtVTzSxtLVzceFHX5JJGWGVnefX#scrollTo=yz6D1r7aOKJQ)
+[![Live Demo](https://img.shields.io/badge/Web%20Penjelasan-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://bakery-sales-analysis.vercel.app/)
 
 </div>
 
@@ -245,6 +249,12 @@ import opendatasets as od
 
 ---
 
+## 🎨 Presentasi
+
+[![Lihat Presentasi di Canva](https://img.shields.io/badge/Presentasi%20Canva-00C4CC?style=for-the-badge&logo=canva&logoColor=white)](https://canva.link/dvic9pkf0kybonl)
+
+---
+
 <div align="center">
-  <sub>Proyek Akhir Praktikum Sistem Informasi Manajemen · 2025</sub>
+  <sub>Proyek Akhir Praktikum Sistem Informasi Manajemen · 2026 · Kom A2 · Stambuk 2024 · Vokasi D3 Teknik Inforamtika Universitas Sumatera Utara</sub>
 </div>
