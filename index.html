@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penjelasan Proyek Bakery Sales — SIM Praktikum</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card2: #22263a;
+    --accent: #f5a623;
+    --accent2: #e05c5c;
+    --accent3: #5ce0a8;
+    --accent4: #5c9ee0;
+    --text: #e8eaf0;
+    --muted: #8892aa;
+    --border: #2e3348;
+    --code-bg: #12151f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1d27 0%, #0f1117 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(245,166,35,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--muted); max-width: 640px; font-size: 15px; }
+  .hero .team {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .team-pill {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .team-pill strong { color: var(--text); }
+
+  /* Nav */
+  .toc {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .toc a {
+    display: block;
+    padding: 14px 18px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Main layout */
+  .container { max-width: 900px; margin: 0 auto; padding: 40px; }
+
+  /* Sections */
+  .section {
+    margin-bottom: 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-badge {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .step-badge.t2 { background: var(--accent4); }
+  .step-badge.t3 { background: var(--accent3); color: #000; }
+  .step-badge.t4 { background: var(--accent2); }
+  .step-badge.t5a { background: #a78bfa; color: #000; }
+  .step-badge.t5b { background: #34d399; color: #000; }
+
+  .section h2 { font-size: 1.4rem; font-weight: 700; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .card h3.blue { color: var(--accent4); }
+  .card h3.green { color: var(--accent3); }
+  .card h3.red { color: var(--accent2); }
+  .card h3.purple { color: #a78bfa; }
+  .card p, .card li { color: var(--muted); font-size: 14px; }
+  .card ul { padding-left: 18px; }
+  .card li { margin-bottom: 5px; }
+  .card li strong { color: var(--text); }
+
+  /* Code blocks */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    overflow-x: auto;
+  }
+  .code-block.blue { border-left-color: var(--accent4); }
+  .code-block.green { border-left-color: var(--accent3); }
+  .code-block.purple { border-left-color: #a78bfa; }
+  .code-block.teal { border-left-color: #34d399; }
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: #c9d1d9;
+    white-space: pre;
+    line-height: 1.6;
+  }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+  .cm { color: #6e7681; font-style: italic; }
+  .num { color: #f0e68c; }
+  .var { color: #79c0ff; }
+
+  /* Formula box */
+  .formula {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  /* Highlight callout */
+  .callout {
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+  .callout.blue {
+    background: rgba(92,158,224,0.08);
+    border-color: rgba(92,158,224,0.25);
+  }
+  .callout.green {
+    background: rgba(92,224,168,0.08);
+    border-color: rgba(92,224,168,0.25);
+  }
+  .callout.red {
+    background: rgba(224,92,92,0.08);
+    border-color: rgba(224,92,92,0.25);
+  }
+  .callout.purple {
+    background: rgba(167,139,250,0.08);
+    border-color: rgba(167,139,250,0.25);
+  }
+
+  /* Table */
+  .tbl-wrap { overflow-x: auto; margin: 14px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--card2);
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(46,51,72,0.5);
+    color: var(--text);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .rank1 td:first-child { color: var(--accent); font-weight: 700; }
+  .rank-gold { color: var(--accent); font-weight: 700; }
+  .rank-silver { color: var(--accent4); }
+  .rank-bronze { color: var(--accent3); }
+
+  /* Step flow */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 16px 0;
+  }
+  .flow-item {
+    display: flex;
+    gap: 16px;
+    position: relative;
+  }
+  .flow-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 32px;
+  }
+  .flow-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .flow-dot.blue { background: var(--accent4); }
+  .flow-dot.green { background: var(--accent3); }
+  .flow-dot.purple { background: #a78bfa; }
+  .flow-dot.teal { background: #34d399; }
+  .flow-connector {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    min-height: 24px;
+  }
+  .flow-content {
+    padding-bottom: 24px;
+    flex: 1;
+  }
+  .flow-content h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .flow-content p { font-size: 13px; color: var(--muted); }
+
+  /* Comparison box */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 14px 0;
+  }
+  .compare-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .compare-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-card h4.saw { color: #a78bfa; border-bottom-color: rgba(167,139,250,0.3); }
+  .compare-card h4.topsis { color: #34d399; border-bottom-color: rgba(52,211,153,0.3); }
+  .compare-card li { font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+  .compare-card li strong { color: var(--text); }
+  .compare-card ul { padding-left: 16px; }
+
+  /* Number highlight */
+  .num-big {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .stat-box {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-box .val { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .stat-box .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .orange { color: var(--accent); }
+  .blue { color: var(--accent4); }
+  .green { color: var(--accent3); }
+  .red { color: var(--accent2); }
+  .purple { color: #a78bfa; }
+  .teal { color: #34d399; }
+
+  /* Conclusion */
+  .conclusion {
+    background: linear-gradient(135deg, rgba(245,166,35,0.1), rgba(245,166,35,0.03));
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 14px;
+    padding: 28px;
+    margin-top: 40px;
+  }
+  .conclusion h2 { color: var(--accent); margin-bottom: 16px; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px; }
+    .hero { padding: 28px 20px; }
+    .toc { padding: 0 20px; }
+    .hero h1 { font-size: 1.5rem; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Praktikum Sistem Informasi Manajemen</div>
+  <h1>Proyek Akhir: <span>Bakery Sales</span><br>2006 – 2019</h1>
+  <p>Penjelasan lengkap seluruh tahapan proyek — dari Data Wrangling hingga Sistem Pendukung Keputusan (SPK) — beserta mekanisme kalkulasi SAW dan TOPSIS.</p>
+  <div class="team">
+    <div class="team-pill"><strong>Rivaldo</strong> — Data Wrangling + Analisis & SPK</div>
+    <div class="team-pill"><strong>Argya Ariella</strong> — EDA</div>
+    <div class="team-pill"><strong>Annisa</strong> — Visualisasi Data</div>
+  </div>
+</div>
+
+<nav class="toc">
+  <a href="#t1">Tahap 1: Wrangling</a>
+  <a href="#t2">Tahap 2: EDA</a>
+  <a href="#t3">Tahap 3: Visualisasi</a>
+  <a href="#t4">Tahap 4: Analisis Masalah</a>
+  <a href="#t5">Tahap 5: SPK</a>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- TAHAP 1 -->
+<!-- ============================================================ -->
+<div class="section" id="t1">
+  <div class="section-header">
+    <span class="step-badge">Tahap 1</span>
+    <h2>Data Wrangling (Rivaldo)</h2>
+  </div>
+
+  <div class="card">
+    <h3>Apa itu Data Wrangling?</h3>
+    <p>Data wrangling adalah proses <strong style="color:var(--text)">membersihkan dan menyiapkan data mentah</strong> agar siap dianalisis. Data dari internet seringkali kotor — ada kolom tidak perlu, tipe data salah, nilai kosong, atau duplikat. Tahap ini memastikan data yang masuk ke analisis sudah bersih dan konsisten.</p>
+  </div>
+
+  <div class="card">
+    <h3>Dataset yang Dipakai</h3>
+    <ul>
+      <li><strong>Sumber:</strong> Kaggle — "Bakery Sales Data 2006–19"</li>
+      <li><strong>Jumlah baris:</strong> 5.113 baris (jauh di atas minimum 1.000)</li>
+      <li><strong>Kolom awal:</strong> 9 kolom (Unnamed:0, Date, weekday, cakes, pies, cookies, smoothies, coffee, promotion)</li>
+      <li><strong>Isi data:</strong> Penjualan harian 5 produk bakery selama 14 tahun</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Langkah-langkah Cleaning</h3>
+    <div class="flow">
+
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>1. Download Dataset</h4>
+          <p>Menggunakan library <code>opendatasets</code> untuk download langsung dari Kaggle ke Colab.</p>
+          <div class="code-block">
+<pre><span class="kw">import</span> opendatasets <span class="kw">as</span> od
+od.<span class="fn">download</span>(<span class="str">"https://www.kaggle.com/datasets/sanu12300/bakery-sales-data-2006-19"</span>)</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot blue"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>2. Cek Struktur Data</h4>
+          <p><code>df.info()</code> menampilkan tipe data tiap kolom dan jumlah non-null. <code>df.shape</code> menampilkan (jumlah baris, jumlah kolom).</p>
+          <div class="code-block blue">
+<pre>df.<span class="fn">info</span>()        <span class="cm"># lihat tipe data & non-null count</span>
+df.<span class="fn">head</span>()        <span class="cm"># lihat 5 baris pertama</span>
+<span class="fn">print</span>(df.shape)  <span class="cm"># output: (5113, 9)</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot green"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>3. Cek Missing Value & Duplikat</h4>
+          <p>Hasilnya: <strong style="color:var(--text)">0 missing value, 0 duplikat</strong> — data sudah bersih dari sisi ini.</p>
+          <div class="code-block green">
+<pre>df.<span class="fn">isnull</span>().<span class="fn">sum</span>()    <span class="cm"># cek nilai kosong per kolom</span>
+df.<span class="fn">duplicated</span>().<span class="fn">sum</span>()  <span class="cm"># cek baris duplikat → hasilnya 0</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot orange"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>4. Konversi Tipe Data Date</h4>
+          <p>Kolom <code>Date</code> awalnya bertipe <code>object</code> (string). Diubah ke <code>datetime64</code> agar bisa digunakan untuk operasi tanggal (bulan, tahun, minggu).</p>
+          <div class="code-block">
+<pre>df[<span class="str">'Date'</span>] = pd.<span class="fn">to_datetime</span>(df[<span class="str">'Date'</span>])
+<span class="cm"># Setelah ini bisa pakai: df['Date'].dt.month, .dt.year, dll.</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot purple"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>5. Encoding Kolom Promotion</h4>
+          <p>Kolom <code>promotion</code> berisi teks "promotion" / "none". Diubah ke angka 1 / 0 agar bisa diproses secara numerik (korelasi, rata-rata, dsb).</p>
+          <div class="code-block purple">
+<pre>df[<span class="str">'promotion'</span>] = df[<span class="str">'promotion'</span>].<span class="fn">map</span>({
+    <span class="str">'none'</span>: <span class="num">0</span>,
+    <span class="str">'promotion'</span>: <span class="num">1</span>
+})</pre>
+          </div>
+          <div class="callout purple">
+            <strong>Kenapa harus di-encode?</strong> Komputer tidak bisa menghitung rata-rata dari string "promotion". Setelah jadi angka (0/1), kita bisa langsung pakai <code>df.groupby('promotion').mean()</code> untuk membandingkan penjualan saat promo vs tidak.
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot teal"></div></div>
+        <div class="flow-content">
+          <h4>6. Hapus Kolom Tidak Perlu & Tambah Kolom Waktu</h4>
+          <div class="code-block teal">
+<pre>df = df.<span class="fn">drop</span>(columns=[<span class="str">'Unnamed: 0'</span>])   <span class="cm"># kolom index duplikat, tidak perlu</span>
+df[<span class="str">'month'</span>] = df[<span class="str">'Date'</span>].dt.month       <span class="cm"># ekstrak bulan untuk EDA</span>
+df[<span class="str">'year'</span>]  = df[<span class="str">'Date'</span>].dt.year        <span class="cm"># ekstrak tahun untuk tren tahunan</span></pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="callout green">
+    <strong>✅ Hasil Akhir Wrangling:</strong> Dataset bersih dengan 5.113 baris, 8 kolom, tanpa missing value, tanpa duplikat. Tipe data sudah benar semua, kolom promotion sudah numerik, dan sudah ada kolom tambahan month & year untuk keperluan EDA.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAHAP 2 -->
+<!-- ============================================================ -->
+<div class="section" id="t2">
+  <div class="section-header">
+    <span class="step-badge t2">Tahap 2</span>
+    <h2>Exploratory Data Analysis — EDA (Argya)</h2>
+  </div>
+
+  <div class="card">
+    <h3 class="blue">Apa itu EDA?</h3>
+    <p>EDA adalah proses <strong style="color:var(--text)">menjelajahi data untuk menemukan pola, tren, dan anomali</strong> sebelum membuat kesimpulan. Di sini kita belum menjawab pertanyaan spesifik — kita dulu bertanya "ada apa di data ini?"</p>
+  </div>
+
+  <div class="card">
+    <h3 class="blue">Temuan Utama EDA</h3>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="val orange">59.99</div><div class="lbl">rata2 cookies/hari</div></div>
+      <div class="stat-box"><div class="val blue">49.84</div><div class="lbl">rata2 coffee/hari</div></div>
+      <div class="stat-box"><div class="val red">25.03</div><div class="lbl">rata2 cakes/hari (terendah)</div></div>
+    </div>
+
+    <ul style="margin-top:12px">
+      <li><strong>Produk terlaris:</strong> Cookies (306.719 unit total) — 2.4x lebih banyak dari Cakes (127.957 unit)</li>
+      <li><strong>Hari paling ramai:</strong> Jumat (207.4 unit/hari), paling sepi Selasa (199.6 unit/hari) — selisihnya tidak drastis, penjualan stabil sepanjang minggu</li>
+      <li><strong>Promosi paling efektif pada Cookies:</strong> naik +91.8% saat ada promo</li>
+      <li><strong>Korelasi antar produk mendekati 0:</strong> artinya pelanggan membeli satu produk tidak berarti membeli produk lain di hari yang sama (tidak ada cross-selling organik)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 class="blue">Syntax Penting EDA</h3>
+
+    <p style="margin-bottom:10px; font-size:13px; color:var(--muted)"><strong style="color:var(--text)">Membuat kolom total & kolom waktu tambahan:</strong></p>
+    <div class="code-block blue">
+<pre>df[<span class="str">'total'</span>] = df[[<span class="str">'cakes'</span>,<span class="str">'pies'</span>,<span class="str">'cookies'</span>,<span class="str">'smoothies'</span>,<span class="str">'coffee'</span>]].<span class="fn">sum</span>(axis=<span class="num">1</span>)
+<span class="cm"># axis=1 artinya jumlahkan per BARIS (bukan per kolom)</span>
+
+df[<span class="str">'month_name'</span>] = df[<span class="str">'Date'</span>].dt.<span class="fn">strftime</span>(<span class="str">'%b'</span>)   <span class="cm"># → "Jan", "Feb", dst</span>
+df[<span class="str">'week'</span>] = df[<span class="str">'Date'</span>].dt.<span class="fn">isocalendar</span>().week.<span class="fn">astype</span>(<span class="fn">int</span>)</pre>
+    </div>
+
+    <p style="margin-bottom:10px; margin-top:16px; font-size:13px; color:var(--muted)"><strong style="color:var(--text)">Analisis promosi — membandingkan rata-rata saat promo vs tidak:</strong></p>
+    <div class="code-block blue">
+<pre><span class="cm"># groupby('promotion') → bagi data jadi 2 grup: 0 (tidak promo) dan 1 (promo)</span>
+<span class="cm"># .mean() → hitung rata-rata tiap produk di tiap grup</span>
+<span class="cm"># .T → transpose agar produk jadi baris, bukan kolom</span>
+promo_compare = df.<span class="fn">groupby</span>(<span class="str">'promotion'</span>)[products].<span class="fn">mean</span>().T
+promo_compare.columns = [<span class="str">'Tanpa Promo'</span>, <span class="str">'Ada Promo'</span>]
+
+<span class="cm"># Hitung % kenaikan</span>
+promo_compare[<span class="str">'kenaikan_%'</span>] = (
+    (promo_compare[<span class="str">'Ada Promo'</span>] - promo_compare[<span class="str">'Tanpa Promo'</span>])
+    / promo_compare[<span class="str">'Tanpa Promo'</span>] * <span class="num">100</span>
+).<span class="fn">round</span>(<span class="num">2</span>)</pre>
+    </div>
+
+    <p style="margin-bottom:10px; margin-top:16px; font-size:13px; color:var(--muted)"><strong style="color:var(--text)">Analisis korelasi:</strong></p>
+    <div class="code-block blue">
+<pre>corr_matrix = df[products + [<span class="str">'promotion'</span>]].<span class="fn">corr</span>()
+<span class="cm"># .corr() menghitung koefisien korelasi Pearson antar semua pasangan kolom</span>
+<span class="cm"># Nilai -1 s/d +1: mendekati 0 = tidak ada hubungan linear</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAHAP 3 -->
+<!-- ============================================================ -->
+<div class="section" id="t3">
+  <div class="section-header">
+    <span class="step-badge t3">Tahap 3</span>
+    <h2>Visualisasi Data (Annisa)</h2>
+  </div>
+
+  <div class="card">
+    <h3 class="green">5 Grafik yang Dibuat</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>#</th><th>Jenis Grafik</th><th>Insight Utama</th></tr>
+        <tr><td>1</td><td>Bar Chart — Produk Terlaris</td><td>Cookies & Coffee dominasi, Cakes paling rendah</td></tr>
+        <tr><td>2</td><td>Line Chart — Tren Tahunan</td><td>Penjualan stabil 14 tahun, tidak ada lonjakan/penurunan drastis</td></tr>
+        <tr><td>3</td><td>Pie Chart — Kontribusi Produk</td><td>&gt;54% penjualan bergantung hanya pada 2 produk</td></tr>
+        <tr><td>4</td><td>Heatmap — Korelasi Antar Produk</td><td>Nilai ≈ 0, tidak ada cross-selling organik</td></tr>
+        <tr><td>5</td><td>Boxplot — Promo vs Non-Promo</td><td>Ada promo terbukti naikkan penjualan harian secara signifikan</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="green">Syntax Penting Visualisasi</h3>
+    <div class="code-block green">
+<pre><span class="cm"># Pie Chart dengan efek "explode" pada produk terlaris</span>
+plt.<span class="fn">pie</span>(product_sales.values,
+        labels=[name.<span class="fn">capitalize</span>() <span class="kw">for</span> name <span class="kw">in</span> product_sales.index],
+        autopct=<span class="str">'%1.1f%%'</span>,          <span class="cm"># tampilkan persentase</span>
+        explode=(<span class="num">0.05</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>)) <span class="cm"># potongan terpisah untuk #1</span>
+
+<span class="cm"># Boxplot promo vs non-promo</span>
+sns.<span class="fn">boxplot</span>(x=<span class="str">'promotion'</span>, y=<span class="str">'Total_Sales'</span>, data=df,
+            palette={<span class="str">'1'</span>: <span class="str">'#2ecc71'</span>, <span class="str">'0'</span>: <span class="str">'#e74c3c'</span>})
+<span class="cm"># Boxplot menampilkan median, Q1, Q3, dan outlier sekaligus</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAHAP 4 -->
+<!-- ============================================================ -->
+<div class="section" id="t4">
+  <div class="section-header">
+    <span class="step-badge t4">Tahap 4</span>
+    <h2>Analisis & Identifikasi Masalah (Rivaldo)</h2>
+  </div>
+
+  <div class="card">
+    <h3 class="red">3 Masalah yang Ditemukan</h3>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot" style="background:var(--accent2)"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>Masalah 1 — Ketimpangan Penjualan Produk</h4>
+          <p>Cookies (306K unit) vs Cakes (127K unit) → selisih 2.4x. Dua produk (cookies + coffee) sudah menyumbang 54% total penjualan. Cakes hanya 12.3%. Apakah sumber daya bakery sudah dialokasikan optimal?</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot" style="background:var(--accent2)"></div><div class="flow-connector"></div></div>
+        <div class="flow-content">
+          <h4>Masalah 2 — Efektivitas Promosi Tidak Merata</h4>
+          <p>Cookies naik +91.8% saat promo, tapi Cakes hanya +26.1%. Jika promosi dialokasikan tanpa data, bisa jadi kita promo produk yang kurang responsif dan membuang-buang anggaran.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-line"><div class="flow-dot" style="background:var(--accent2)"></div></div>
+        <div class="flow-content">
+          <h4>Masalah 3 — Tidak Ada Cross-Selling Organik</h4>
+          <p>Korelasi antar produk ≈ 0 berarti pelanggan beli cookies tidak berarti beli coffee di hari yang sama. Ini peluang: bundling produk bisa mendorong penjualan produk lemah.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout red" style="margin-top:8px">
+      <strong>Rumusan Masalah Utama SPK:</strong><br>
+      "Produk mana yang harus diprioritaskan untuk mendapat alokasi promosi pada periode berikutnya?"
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAHAP 5 -->
+<!-- ============================================================ -->
+<div class="section" id="t5">
+  <div class="section-header">
+    <span class="step-badge t5a">Tahap 5</span>
+    <h2>Implementasi SPK — SAW & TOPSIS (Rivaldo)</h2>
+  </div>
+
+  <div class="card">
+    <h3 class="purple">Apa itu SPK?</h3>
+    <p>SPK (Sistem Pendukung Keputusan) adalah sistem yang membantu pengambil keputusan memilih dari beberapa alternatif berdasarkan banyak kriteria secara terstruktur dan objektif. Di proyek ini: <strong style="color:var(--text)">memilih produk mana yang paling layak diprioritaskan untuk promosi</strong>, berdasarkan 4 kriteria dari data historis.</p>
+  </div>
+
+  <!-- Matriks Keputusan -->
+  <div class="card">
+    <h3 class="purple">Matriks Keputusan (Langkah Awal Semua SPK)</h3>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:12px">Matriks keputusan adalah tabel utama yang berisi nilai tiap alternatif (produk) untuk setiap kriteria. Ini adalah input dari semua metode SPK.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr>
+          <th>Produk</th>
+          <th>C1: Rata2 Harian</th>
+          <th>C2: % Kenaikan Promo</th>
+          <th>C3: Konsistensi (1/std)</th>
+          <th>C4: Kontribusi (%)</th>
+        </tr>
+        <tr><td>Cakes</td><td>25.03</td><td>26.10</td><td>0.0698</td><td>12.34</td></tr>
+        <tr><td>Pies</td><td>30.19</td><td>29.85</td><td>0.0593</td><td>14.89</td></tr>
+        <tr><td style="color:var(--accent);font-weight:700">Cookies</td><td style="color:var(--accent)">59.99</td><td style="color:var(--accent)">91.76</td><td>0.0292</td><td style="color:var(--accent)">29.58</td></tr>
+        <tr><td>Smoothies</td><td>37.76</td><td>42.30</td><td>0.0472</td><td>18.62</td></tr>
+        <tr><td>Coffee</td><td>49.84</td><td>63.84</td><td>0.0351</td><td>24.57</td></tr>
+        <tr style="background:rgba(167,139,250,0.06)">
+          <td style="color:#a78bfa; font-size:12px">Bobot (W)</td>
+          <td style="color:#a78bfa">0.20</td><td style="color:#a78bfa">0.35</td><td style="color:#a78bfa">0.20</td><td style="color:#a78bfa">0.25</td>
+        </tr>
+        <tr style="background:rgba(167,139,250,0.04)">
+          <td style="color:var(--muted); font-size:11px">Jenis</td>
+          <td style="color:var(--muted); font-size:11px">Benefit ↑</td>
+          <td style="color:var(--muted); font-size:11px">Benefit ↑</td>
+          <td style="color:var(--muted); font-size:11px">Benefit ↑</td>
+          <td style="color:var(--muted); font-size:11px">Benefit ↑</td>
+        </tr>
+      </table>
+    </div>
+    <div class="callout purple">
